@@ -10,11 +10,11 @@ echo "--------------------------------------------"
 #
 USER=$POSTGRESQL_USER
 PASSWORD=$POSTGRESQL_PASSWORD
-DATADIR=${POSTGRESQL_DATADIR:=/var/lib/postgresql/9.1/main}
-BINDIR=${POSTGRESQL_BINDIR:=/usr/lib/postgresql/9.1/bin}
-CONFIG_FILE=${POSTGRESQL_CONFIG_FILE:=/etc/postgresql/9.1/main/postgresql.conf}
-HBA_FILE=${POSTGRESQL_HBA_FILE:=/etc/postgresql/9.1/main/pg_hba.conf}
-IDENT_FILE=${POSTGRESQL_IDENT_FILE:=/etc/postgresql/9.1/main/pg_ident.conf}
+DATADIR=${POSTGRESQL_DATADIR:=/var/lib/postgresql/9.3/main}
+BINDIR=${POSTGRESQL_BINDIR:=/usr/lib/postgresql/9.3/bin}
+CONFIG_FILE=${POSTGRESQL_CONFIG_FILE:=/etc/postgresql/9.3/main/postgresql.conf}
+HBA_FILE=${POSTGRESQL_HBA_FILE:=/etc/postgresql/9.3/main/pg_hba.conf}
+IDENT_FILE=${POSTGRESQL_IDENT_FILE:=/etc/postgresql/9.3/main/pg_ident.conf}
 MAX_CONNECTIONS=${POSTGRES_MAX_CONNECTIONS:=60}
 
 # Custom die function.
