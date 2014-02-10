@@ -32,8 +32,8 @@ RUN apt-get -y install wget
 RUN apt-get -y install python-software-properties
 
 # Get Key:
-RUN wget --quiet -O ~/key.asc - https://www.postgresql.org/media/keys/ACCC4CF8.asc
-RUN apt-key add ~/key.asc
+RUN wget https://www.postgresql.org/media/keys/ACCC4CF8.asc
+RUN apt-key add ~/ACCC4CF8.asc
 
 # Add Source & Update:
 RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" >> /etc/apt/sources.list.d/postgresql.list'
