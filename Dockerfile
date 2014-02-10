@@ -14,26 +14,29 @@ RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d; chmod +x /usr/sbin/polic
 # Set up the environment
 #
 ENV DEBIAN_FRONTEND noninteractive
-ENV LANGUAGE en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
 
 
 # Fix encoding-related bug
 # https://bugs.launchpad.net/ubuntu/+source/lxc/+bug/813398
 #
-RUN apt-get -qy install language-pack-en #
+RUN apt-get -qy install language-pack-en 
 RUN locale-gen en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+
 RUN dpkg-reconfigure locales
 RUN apt-get update
+
+
 
 # Get Ready:
 RUN apt-get -y install wget 
 RUN apt-get -y install python-software-properties
 
 # Get Key:
-RUN wget https://www.postgresql.org/media/keys/ACCC4CF8.asc
-RUN apt-key add ~/ACCC4CF8.asc
+RUN wget --quiet https://www.postgresql.org/media/keys/ACCC4CF8.asc
+RUN apt-key add ACCC4CF8.asc
 
 # Add Source & Update:
 RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" >> /etc/apt/sources.list.d/postgresql.list'
