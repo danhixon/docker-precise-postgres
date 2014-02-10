@@ -25,14 +25,15 @@ ENV LC_ALL en_US.UTF-8
 RUN apt-get -qy install language-pack-en #
 RUN locale-gen en_US.UTF-8
 RUN dpkg-reconfigure locales
+RUN apt-get update
 
 # Get Ready:
 RUN apt-get -y install wget 
 RUN apt-get -y install python-software-properties
 
 # Get Key:
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc
-RUN apt-key add ACCC4CF8.asc
+RUN wget --quiet -O ~/key.asc - https://www.postgresql.org/media/keys/ACCC4CF8.asc
+RUN apt-key add ~/key.asc
 
 # Add Source & Update:
 RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" >> /etc/apt/sources.list.d/postgresql.list'
