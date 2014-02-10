@@ -14,7 +14,7 @@ makes it easy to
 
 Clone the repository
 
-	export IMGTAG="pitrho/precise-postgres"
+	export IMGTAG="precise-postgres-9.3"
 	git clone https://github.com/pitrho/docker-precise-postgres.git
 	cd docker-precise-postgres
 	docker build -t $IMGTAG .

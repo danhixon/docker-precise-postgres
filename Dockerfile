@@ -15,7 +15,6 @@ RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d; chmod +x /usr/sbin/polic
 #
 ENV DEBIAN_FRONTEND noninteractive
 
-
 # Fix encoding-related bug
 # https://bugs.launchpad.net/ubuntu/+source/lxc/+bug/813398
 #
@@ -42,6 +41,9 @@ RUN apt-key add ACCC4CF8.asc
 RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" >> /etc/apt/sources.list.d/postgresql.list'
 RUN apt-get update
 
+RUN cp /etc/ssl/private/ssl-cert-snakeoil.key /etc/postgresql/9.3/main/server.key
+RUN chown root:ssl-cert /etc/postgresql/9.3/main/server.key
+
 # Install postgresql 
 RUN apt-get install -y -q postgresql-9.3 postgresql-contrib-9.3
 
@@ -65,11 +67,10 @@ ADD pg_hba.conf /etc/postgresql/9.3/main/
 #
 EXPOSE 5432
 
-
 # The entrypoint is our shell script.  You can pass in arguments
 # to this shell script when you start the docker container, e.g.
 #
-#	$ docker run -d "pitrho/postgres" -u foo -p bar
+#	$ docker run -d "precise-postgres-9.3" -u foo -p bar
 #
 # where the -u and -p arguments are passed to the shell script.
 #
