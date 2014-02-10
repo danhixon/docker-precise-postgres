@@ -3,7 +3,7 @@
 # Based on
 # https://github.com/srid/discourse-docker/blob/master/postgresql/Dockerfile
 FROM       	ubuntu:12.04
-MAINTAINER  pitrho
+MAINTAINER  danhixon
 
 
 # Prevent apt from starting postgres right after the installation
@@ -26,10 +26,20 @@ RUN apt-get -qy install language-pack-en #
 RUN locale-gen en_US.UTF-8
 RUN dpkg-reconfigure locales
 
+# Get Ready:
+RUN apt-get -y install wget 
+RUN apt-get -y install python-software-properties
+
+# Get Key:
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc
+RUN apt-key add ACCC4CF8.asc
+
+# Add Source & Update:
+RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" >> /etc/apt/sources.list.d/postgresql.list'
+RUN apt-get update
 
 # Install postgresql 
-#
-RUN apt-get install -y -q postgresql-9.1 postgresql-contrib-9.1
+RUN apt-get install -y -q postgresql-9.3 postgresql-contrib-9.3
 
 
 # Allow autostart again
@@ -42,8 +52,8 @@ RUN rm /usr/sbin/policy-rc.d
 #
 ADD start_postgres.sh /
 RUN chmod a+x ./start_postgres.sh
-ADD postgresql.conf /etc/postgresql/9.1/main/
-ADD pg_hba.conf /etc/postgresql/9.1/main/
+ADD postgresql.conf /etc/postgresql/9.3/main/
+ADD pg_hba.conf /etc/postgresql/9.3/main/
 
 
 # Expose port 5432, the default Postgresql port, which will
