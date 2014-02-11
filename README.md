@@ -15,8 +15,8 @@ makes it easy to
 Clone the repository
 
 	export IMGTAG="precise-postgres-9.3"
-	git clone https://github.com/pitrho/docker-precise-postgres.git
-	cd docker-precise-postgres
+	git clone https://github.com/danhixon/precise-postgres.git
+	cd precise-postgres
 	docker build -t $IMGTAG .
 
 Verify you have the image locally
@@ -111,11 +111,5 @@ MIT. See the LICENSE file.
 
 ## Acknowledgements
 
-We started with the excellent
-[PostgreSQL Docker image from Discourse](https://github.com/srid/discourse-docker/tree/master/postgresql).
-
-
-## Contributors
-
-* [Kyle Jensen](https://github.com/kljensen)
-* [Gilman Callsen](https://github.com/callseng)
+I started with the excellent
+[Precise Postgres Image from Pit Rho](https://github.com/pitrho/docker-precise-postgres).
