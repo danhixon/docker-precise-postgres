@@ -18,7 +18,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Fix encoding-related bug
 # https://bugs.launchpad.net/ubuntu/+source/lxc/+bug/813398
 #
-RUN apt-get -qy install language-pack-en 
+RUN apt-get -qy --force-yes install language-pack-en 
 RUN locale-gen en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV LANG en_US.UTF-8
