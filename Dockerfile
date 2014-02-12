@@ -5,11 +5,9 @@
 FROM       	ubuntu:12.04
 MAINTAINER  danhixon
 
-
 # Prevent apt from starting postgres right after the installation
 #
 RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d; chmod +x /usr/sbin/policy-rc.d
-
 
 # Set up the environment
 #
@@ -18,16 +16,12 @@ ENV DEBIAN_FRONTEND noninteractive
 # Fix encoding-related bug
 # https://bugs.launchpad.net/ubuntu/+source/lxc/+bug/813398
 #
-RUN apt-get -qy --force-yes install language-pack-en 
-RUN locale-gen en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
+RUN apt-get update
+RUN apt-get -qy --fix-missing --force-yes install language-pack-en 
+RUN update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
 RUN dpkg-reconfigure locales
 RUN apt-get update
-
-
 
 # Get Ready:
 RUN apt-get -y install wget 
@@ -78,4 +72,4 @@ EXPOSE 5432
 #
 ENTRYPOINT ["/start_postgres.sh"]
 # default arguments
-CMD ["-u docker -p docker"]
+#CMD ["-u docker -p docker"]
