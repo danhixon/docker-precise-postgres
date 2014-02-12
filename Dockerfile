@@ -72,8 +72,10 @@ EXPOSE 5432
 # The entrypoint is our shell script.  You can pass in arguments
 # to this shell script when you start the docker container, e.g.
 #
-#	$ docker run -d "danhixon/precise-postgres-9.3" -u foo -p bar
+#	$ docker run -d "danhixon/precise-postgres-9.3" -u docker -p docker
 #
 # where the -u and -p arguments are passed to the shell script.
 #
 ENTRYPOINT ["/start_postgres.sh"]
+# default arguments
+CMD ["-u docker -p docker"]

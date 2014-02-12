@@ -91,7 +91,7 @@ fi
 if [ ! "$(ls -A $DATADIR)" ]; then
   echo "Initializing Postgres Database at $DATADIR"
   chown -R postgres $DATADIR
-  su postgres sh -c "$BINDIR/initdb $DATADIR"
+  su postgres sh -c "$BINDIR/initdb -E 'UTF-8' $DATADIR"
 fi
 
 

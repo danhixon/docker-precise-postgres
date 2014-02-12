@@ -14,8 +14,8 @@ makes it easy to
 
 Clone the repository
 
-	export IMGTAG="precise-postgres-9.3"
-	git clone https://github.com/danhixon/precise-postgres.git
+	export IMGTAG="precise-postgres"
+	git clone https://github.com/danhixon/precise-postgres.git precise-postgres
 	cd precise-postgres
 	docker build -t $IMGTAG .
 
@@ -27,16 +27,16 @@ Verify you have the image locally
 
 ### Basic usage
 
-Start the image, creating an admin user "foo" with password "bar".
+Start the image, creating an admin user "docker" with password "docker".
 
-	PGID=$(docker run -d $IMGTAG -u foo -p bar)
+	PGID=$(docker run -d $IMGTAG)
 	PGIP=$(docker inspect -format='{{.NetworkSettings.IPAddress}}' $PGID)
 
 Now you should be able to connect with `psql` as such
 
-	psql -h $PGIP -U foo -d postgres
+	psql -h $PGIP -U docker -d postgres
 
-You'll get prompted for a password, enter 'bar'.  (Clearly, you will need
+You'll get prompted for a password, enter 'docker'.  (Clearly, you will need
 to have a PostgreSQL client installed to have the `psql` command.)
 
 A few comments:
@@ -59,19 +59,19 @@ data.
 Now, mount that as a volume when you start up the container and
 tell PostgreSQL to store its data there
 
-	PGID=$(docker run -v /tmp/pgdata/:/tmp/pgdata/ -d $IMGTAG -u foo -p bar -d /tmp/pgdata/)
+	PGID=$(docker run -v /tmp/pgdata/:/tmp/pgdata/ -d $IMGTAG -u docker -p docker -d /tmp/pgdata/)
 	PGIP=$(docker inspect -format='{{.NetworkSettings.IPAddress}}' $PGID)
 
 Again, you can connect from the host system like
 
-	psql -h $PGIP -U foo -d postgres
+	psql -h $PGIP -U docker -d postgres
 
 Go ahead and make some changes, e.g. creating a table, etc.  Then,
 stop the container
 
 	docker stop $PGID
 
-Now, let's start it up again. Since we created the `foo` user previously, and
+Now, let's start it up again. Since we created the `docker` user previously, and
 our data were persisted in the volume, there's no need to pass the `-u` and 
 `-p` parameters this time
 
@@ -100,7 +100,7 @@ command can only copy files *from* a contain, alas.)
 For example, imagine we have a custom PostgreSQL config_file at `/tmp/pgconfig/postgresql.conf`
 and we want to start PostgreSQL using this.  We'd start the container like
 
-	PGID=$(docker run -v /tmp/pgconfig/:/tmp/pgconfig/ -d $IMGTAG -u foo -p bar -c /tmp/pgconfig/postgresql.conf)
+	PGID=$(docker run -v /tmp/pgconfig/:/tmp/pgconfig/ -d $IMGTAG -u docker -p docker -c /tmp/pgconfig/postgresql.conf)
 	PGIP=$(docker inspect -format='{{.NetworkSettings.IPAddress}}' $PGID)
 
 
