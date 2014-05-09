@@ -52,7 +52,9 @@ RUN rm /usr/sbin/policy-rc.d
 # Move our files into the Docker image and make the
 # entrypoint executable.
 #
+ADD start_standby.sh /
 ADD start_postgres.sh /
+RUN chmod a+x ./start_standby.sh
 RUN chmod a+x ./start_postgres.sh
 ADD postgresql.conf /etc/postgresql/9.3/main/
 ADD pg_hba.conf /etc/postgresql/9.3/main/
