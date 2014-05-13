@@ -103,9 +103,8 @@ if [[ ! -z $USER ]]; then
 	echo "$PGCMD --single $PGARGS"
 	su postgres sh -c "$PGCMD --single $PGARGS" <<< "CREATE USER $USER WITH SUPERUSER PASSWORD '$PASSWORD';"
 fi
-
  
-echo "Cleaning up old cluster directory"
+echo "Cleaning up data directory"
 su postgres sh -c "rm -rf $DATADIR"
 
 echo "Starting base backup as replicator"
