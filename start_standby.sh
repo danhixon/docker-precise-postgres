@@ -5,6 +5,7 @@ echo "This script configures and starts a standby Postgresql"
 echo "server inside of a Docker container."
 echo "------------------------------------------------------"
 
+chown root:ssl-cert /etc/postgresql/9.3/main/server.key
 
 # Default parameters
 #

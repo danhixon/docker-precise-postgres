@@ -38,12 +38,13 @@ RUN apt-get update
 # Install postgresql 
 RUN apt-get install -y -q postgresql-9.3 postgresql-contrib-9.3
 
-RUN cp /etc/ssl/private/ssl-cert-snakeoil.key /etc/postgresql/9.3/main/server.key
-RUN chown root:ssl-cert /etc/postgresql/9.3/main/server.key
 
 # Allow autostart again
 #
 RUN rm /usr/sbin/policy-rc.d
+
+RUN cp /etc/ssl/private/ssl-cert-snakeoil.key /etc/postgresql/9.3/main/server.key
+RUN chown root:ssl-cert /etc/postgresql/9.3/main/server.key
 
 # Move our files into the Docker image and make the
 # entrypoint executable.
@@ -71,4 +72,4 @@ EXPOSE 5432
 #
 ENTRYPOINT ["/start_postgres.sh"]
 # default arguments
-#CMD ["-u docker -p docker"]
+CMD ["-u docker -p docker"]
