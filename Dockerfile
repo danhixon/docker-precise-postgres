@@ -41,9 +41,6 @@ RUN apt-get install -y -q postgresql-9.3 postgresql-contrib-9.3
 RUN cp /etc/ssl/private/ssl-cert-snakeoil.key /etc/postgresql/9.3/main/server.key
 RUN chown root:ssl-cert /etc/postgresql/9.3/main/server.key
 
-RUN cp /etc/ssl/private/ssl-cert-snakeoil.key /etc/postgresql/9.3/main/server.key
-RUN chown root:ssl-cert /etc/postgresql/9.3/main/server.key
-
 # Allow autostart again
 #
 RUN rm /usr/sbin/policy-rc.d

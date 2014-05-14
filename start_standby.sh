@@ -105,7 +105,9 @@ if [[ ! -z $USER ]]; then
 fi
  
 echo "Cleaning up data directory"
-su postgres sh -c "rm -rf $DATADIR"
+sudo rm -rf $DATADIR
+# permission denied when run as postgres
+#su postgres sh -c "rm -rf $DATADIR"
 
 echo "Starting base backup as replicator"
 export PGPASSWORD=$REPLICATOR_PASSWORD
