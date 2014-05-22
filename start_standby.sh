@@ -87,28 +87,13 @@ if [ ! -d $DATADIR ]; then
   echo "Creating Postgres data at $DATADIR"
   mkdir -p $DATADIR
 fi
+chown -R postgres $DATADIR
 
-
-# If DATADIR has no content, initialize it
+# If DATADIR has content, clean it up it.
 #
-if [ ! "$(ls -A $DATADIR)" ]; then
-  echo "Initializing Postgres Database at $DATADIR"
-  chown -R postgres $DATADIR
-  su postgres sh -c "$BINDIR/initdb -E 'UTF-8' $DATADIR"
+if [ "$(ls -A $DATADIR)" ]; then
+  rm -rf $DATADIR/*
 fi
-
-# Create a user
-#
-if [[ ! -z $USER ]]; then
-	echo "Setting up Postgresql user '$USER' with password '$PASSWORD'"
-	echo "$PGCMD --single $PGARGS"
-	su postgres sh -c "$PGCMD --single $PGARGS" <<< "CREATE USER $USER WITH SUPERUSER PASSWORD '$PASSWORD';"
-fi
- 
-echo "Cleaning up data directory"
-sudo rm -rf $DATADIR
-# permission denied when run as postgres
-#su postgres sh -c "rm -rf $DATADIR"
 
 echo "Starting base backup as replicator"
 export PGPASSWORD=$REPLICATOR_PASSWORD
