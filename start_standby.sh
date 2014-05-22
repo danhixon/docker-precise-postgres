@@ -96,12 +96,12 @@ if [ "$(ls -A $DATADIR)" ]; then
   rm -rf $DATADIR/*
 fi
 
-echo "Starting base backup as replicator"
+echo "$(date) Starting base backup as replicator"
 export PGPASSWORD=$REPLICATOR_PASSWORD
 su postgres sh -c "pg_basebackup -h $MASTER_ADDRESS -D $DATADIR -U replicator"
 export PGPASSWORD=""
 
-echo "Writing recovery.conf file"
+echo "$(date) Writing recovery.conf file"
 su postgres sh -c "cat > $DATADIR/recovery.conf <<- _EOF1_
   standby_mode = 'on'
   primary_conninfo = 'host=$MASTER_ADDRESS port=$MASTER_PORT user=replicator password=$REPLICATOR_PASSWORD sslmode=require'
@@ -111,8 +111,7 @@ _EOF1_
 
 # Start the Postgresql process
 #
-echo $(date)
-echo "Starting Postgresql with the following options:"
+echo "$(date) Starting Postgresql with the following options:"
 echo -e "\t data_directory=$DATADIR"
 echo -e "\t config_file=$CONFIG_FILE"
 echo -e "\t hba_file=$HBA_FILE"
