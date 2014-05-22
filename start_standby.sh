@@ -88,6 +88,7 @@ if [ ! -d $DATADIR ]; then
   mkdir -p $DATADIR
 fi
 chown -R postgres $DATADIR
+chmod 0700 $DATADIR
 
 # If DATADIR has content, clean it up it.
 #
@@ -110,6 +111,7 @@ _EOF1_
 
 # Start the Postgresql process
 #
+echo $(date)
 echo "Starting Postgresql with the following options:"
 echo -e "\t data_directory=$DATADIR"
 echo -e "\t config_file=$CONFIG_FILE"
