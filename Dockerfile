@@ -58,6 +58,7 @@ RUN chmod a+x ./start_postgres.sh
 ADD start_standby.sh /
 RUN chmod a+x ./start_standby.sh
 
+RUN chown -R postgres:postgres /var/run/postgresql
 # Expose port 5432, the default Postgresql port, which will
 # allow other container to connect to this container's Postgresql
 #
